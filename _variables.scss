@@ -1,54 +1,36 @@
-.cta {
-	text-align: center;
-
-	.section-inner {
-		padding: 48px 16px;
-	}
-
-	.section-title {
-		margin-bottom: 40px;
-	}
+.is-boxed {
+    background: color(bg, 3);
 }
 
-.cta-inner {
-	position: relative;
-	background: color(bg, 1);
-	overflow: hidden;
-
-	&::before {
-		content: '';
-		position: absolute;
-		right: 98px;
-		top: -117px;
-		width: 160px;
-		height: 187px;
-		background-image: url('../images/cta-illustration.svg');
-		background-repeat: no-repeat;
-	}
-
-	> * {
-		position: relative; /* To display elements above hero illustrations */
-	}
+.body-wrap {
+    background: color(bg, 1);
+    overflow: hidden;
+    /* Sticky footer */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-@include media( '>medium') {
+.boxed-container {
+    max-width: 1440px;
+    margin: 0 auto;
+    @include shadow;
+}
 
-	.cta {
-		text-align: left;
+main {
+    flex: 1 0 auto;
+}
 
-		.section-inner {
-			padding: 64px 32px;
-		}
+.section-inner {
+    position: relative; /* To always display inner elements above pseudo decorative stuff */
+    padding-top: 48px;
+    padding-bottom: 48px;
+}
 
-		.section-title {
-			margin-bottom: 0;
-			padding-right: 24px;
-		}
-	}
+@include media( '>medium' ) {
 
-	.cta-inner {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-	}
+    .section-inner {
+        padding-top: 88px;
+        padding-bottom: 88px;
+    }
 }

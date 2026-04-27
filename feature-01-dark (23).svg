@@ -1,13 +1,13 @@
 <svg width="728" height="458" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
-      <stop stop-color="#FFBC48" offset="0%"/>
-      <stop stop-color="#FFBC48" stop-opacity=".48" offset="100%"/>
-    </linearGradient>
-    <linearGradient x1="74.95%" y1="53.242%" x2="2.797%" y2="52.227%" id="b">
-      <stop stop-color="#61EFFD" stop-opacity="0" offset="0%"/>
-      <stop stop-color="#61EFFD" offset="51.929%"/>
+    <linearGradient x1="9.779%" y1="95.911%" x2="92.054%" y2="0%" id="a">
+      <stop stop-color="#93F4FE" offset="0%"/>
+      <stop stop-color="#5ECCF4" offset="38.08%"/>
       <stop stop-color="#535FD7" offset="100%"/>
+    </linearGradient>
+    <linearGradient x1="74.95%" y1="53.242%" x2="1.425%" y2="3.15%" id="b">
+      <stop stop-color="#7C85E1" stop-opacity="0" offset="0%"/>
+      <stop stop-color="#212880" offset="100%"/>
     </linearGradient>
   </defs>
   <g fill="none" fill-rule="evenodd">

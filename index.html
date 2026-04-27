@@ -1,54 +1,122 @@
-{
-  "name": "solid",
-  "version": "1.0.0",
-  "description": "Solid Template",
-  "author": "Pasquale Vitiello <pasqualevitiello@gmail.com>",
-  "license": "GPLv3",
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/pasqualevitiello/solid.git"
-  },
-  "bugs": {
-    "url": "https://bitbucket.org/pasqualevitiello/solid/issues"
-  },
-  "scripts": {
-    "clean": "rimraf dist/{css/*,js/*,images/*}",
-    "autoprefixer": "postcss -u autoprefixer -r dist/css/*",
-    "scss": "node-sass --output-style compressed -o dist/css src/scss",
-    "lint": "eslint src/js || true",
-    "lint-scss": "stylelint src/scss/*.scss --syntax scss || true",
-    "uglify": "mkdirp dist/js -p && uglifyjs src/js/*.js -m -c -o dist/js/main.min.js",
-    "imagemin": "imagemin src/images/* -o dist/images",
-    "serve": "browser-sync start --server --files \"dist/css/*.css, dist/js/*.js, **/*.html, !node_modules/**/*.html\"",
-    "build:css": "run-s lint-scss scss autoprefixer",
-    "build:js": "run-s lint uglify",
-    "build:images": "run-s imagemin",
-    "build": "run-s build:*",
-    "watch:css": "onchange \"src/scss\" -- run-s build:css",
-    "watch:js": "onchange \"src/js\" -- run-s build:js",
-    "watch:images": "onchange \"src/images\" -- run-s build:images",
-    "watch": "run-p serve watch:*",
-    "postinstall": "run-s build watch"
-  },
-  "devDependencies": {
-    "autoprefixer": "^9.0.1",
-    "browser-sync": "^2.12.8",
-    "eslint": "^5.2.0",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^3.8.0",
-    "eslint-plugin-standard": "^3.1.0",
-    "imagemin-cli": "^3.0.0",
-    "mkdirp": "^0.5.1",
-    "node-sass": "^4.9.2",
-    "npm-run-all": "^4.1.3",
-    "onchange": "^4.1.0",
-    "postcss-cli": "^6.0.0",
-    "rimraf": "^2.5.4",
-    "stylelint": "^9.4.0",
-    "uglify-es": "^3.3.10"
-  },
-  "homepage": "https://bitbucket.org/pasqualevitiello/solid#readme",
-  "main": ".eslintrc.js"
-}
+<!DOCTYPE html>
+<html lang="es" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistema de Biblioteca Virtual</title>
+
+    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+
+    <style>
+        .feature-inner {
+            transition: all 0.3s ease;
+        }
+        .feature-inner:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .feature-icon img {
+            border-radius: 10px;
+            height: 180px;
+            width: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+<div class="body-wrap">
+
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="container">
+            <h2 style="color:white;">📚 Biblioteca Virtual</h2>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="container">
+                <h1>Sistema de Gestión de Biblioteca</h1>
+                <p>
+                    Plataforma web para la consulta, gestión y préstamo de libros académicos 
+                    de manera digital y eficiente.
+                </p>
+
+                <a class="button button-primary" href="#">Consultar catálogo</a>
+                <a class="button" href="#">Registrarse</a>
+            </div>
+        </section>
+
+        <!-- SERVICIOS -->
+        <section class="features section">
+            <div class="container">
+
+                <div class="feature text-center">
+                    <div class="feature-inner">
+                        <div class="feature-icon">
+                            <img src="dist/images/libro1.jpg">
+                        </div>
+                        <h4>Consulta de libros</h4>
+                        <p>Búsqueda rápida de libros disponibles en el sistema.</p>
+                    </div>
+                </div>
+
+                <div class="feature text-center">
+                    <div class="feature-inner">
+                        <div class="feature-icon">
+                            <img src="dist/images/libro2.jpg">
+                        </div>
+                        <h4>Préstamos</h4>
+                        <p>Gestión de préstamos y devoluciones en línea.</p>
+                    </div>
+                </div>
+
+                <div class="feature text-center">
+                    <div class="feature-inner">
+                        <div class="feature-icon">
+                            <img src="dist/images/libro3.jpg">
+                        </div>
+                        <h4>Usuarios</h4>
+                        <p>Registro y control de usuarios del sistema.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- MÓDULO DESTACADO -->
+        <section class="pricing section">
+            <div class="container-sm">
+                <h2>Funcionalidad principal</h2>
+                <p>Gestión integral del sistema de biblioteca</p>
+
+                <ul>
+                    <li>Registro de libros</li>
+                    <li>Consulta de disponibilidad</li>
+                    <li>Gestión de préstamos</li>
+                    <li>Control de usuarios</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta section">
+            <div class="container">
+                <h3>Accede al sistema de biblioteca</h3>
+                <a class="button button-primary" href="#">Ingresar</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="site-footer text-center">
+        <p>&copy; 2026 Sistema de Biblioteca - Proyecto SENA</p>
+    </footer>
+
+</div>
+</body>
+</html>

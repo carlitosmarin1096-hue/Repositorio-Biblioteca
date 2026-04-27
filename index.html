@@ -1,155 +1,210 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biblioteca Virtual</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="./dist/css/style.css">
-
-    <!-- FUENTE -->
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
 
-    <!-- ESTILOS EXTRA -->
     <style>
-        .feature-inner {
-            transition: all 0.3s ease;
+        body {
+            margin: 0;
+            font-family: 'IBM Plex Sans', sans-serif;
+            background-color: #f4f6fb;
         }
 
-        .feature-inner:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        /* HEADER */
+        header {
+            background-color: #0e1f87;
+            color: white;
+            padding: 20px;
+            text-align: center;
         }
 
-        .feature-icon img {
-            border-radius: 10px;
-            height: 180px;
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, #0e1f87, #e80b0b);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: 40px;
+        }
+
+        .hero p {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        /* BOTONES */
+        .button {
+            display: inline-block;
+            padding: 12px 25px;
+            margin: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .primary {
+            background-color: #e80b0b;
+            color: white;
+        }
+
+        .secondary {
+            background-color: white;
+            color: #0e1f87;
+            border: 2px solid #0e1f87;
+        }
+
+        /* SECCIÓN */
+        .section {
+            padding: 40px 20px;
+        }
+
+        /* BUSCADOR */
+        #busqueda {
             width: 100%;
-            object-fit: cover;
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid #0e1f87;
+            margin: 20px 0;
+        }
+
+        /* CATÁLOGO */
+        #catalogo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* TARJETAS */
+        .libro-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 6px solid #e80b0b;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .libro-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .libro-card h4 {
+            color: #0e1f87;
+            margin-bottom: 5px;
+        }
+
+        .libro-card p {
+            color: #555;
+        }
+
+        .libro-card button {
+            margin-top: 10px;
+            background: #0e1f87;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .libro-card button:hover {
+            background: #e80b0b;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #0e1f87;
+            color: white;
+            text-align: center;
+            padding: 15px;
         }
     </style>
 </head>
 
-<body class="is-boxed has-animations">
-<div class="body-wrap">
+<body>
 
-    <!-- HEADER -->
-    <header class="site-header">
-        <div class="container text-center">
-            <h2>📚 Biblioteca Virtual</h2>
-        </div>
-    </header>
+<!-- HEADER -->
+<header>
+    <h2>📚 Biblioteca Virtual</h2>
+</header>
 
-    <main>
+<!-- HERO -->
+<section class="hero">
+    <h1>Sistema de Gestión de Biblioteca</h1>
+    <p>Consulta, busca y gestiona libros de manera fácil y rápida</p>
 
-        <!-- HERO -->
-        <section class="hero">
-            <div class="container text-center">
+    <a href="#" class="button primary">Consultar catálogo</a>
+    <a href="#" class="button secondary">Registrarse</a>
+</section>
 
-                <h1 class="hero-title">Sistema de Gestión de Biblioteca</h1>
+<!-- CATÁLOGO -->
+<section class="section">
+    <h2 style="text-align:center;">📖 Catálogo de Libros</h2>
 
-                <p class="hero-paragraph">
-                    Plataforma web orientada a la gestión de libros, usuarios y préstamos 
-                    dentro de una biblioteca académica.
-                </p>
+    <input type="text" id="busqueda" placeholder="Buscar libro...">
 
-                <div class="hero-cta">
-                    <a class="button button-primary" href="#">Consultar catálogo</a>
-                    <a class="button" href="#">Registrarse</a>
-                </div>
+    <div id="catalogo"></div>
+</section>
 
+<!-- FOOTER -->
+<footer>
+    <p>&copy; 2026 Sistema de Biblioteca - Proyecto SENA</p>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+const libros = [
+    {titulo: "Cien años de soledad", autor: "Gabriel García Márquez"},
+    {titulo: "El principito", autor: "Antoine de Saint-Exupéry"},
+    {titulo: "Don Quijote", autor: "Miguel de Cervantes"},
+    {titulo: "Clean Code", autor: "Robert C. Martin"}
+];
+
+const catalogo = document.getElementById("catalogo");
+const busqueda = document.getElementById("busqueda");
+
+function mostrarLibros(lista) {
+    catalogo.innerHTML = "";
+
+    lista.forEach(libro => {
+        catalogo.innerHTML += `
+            <div class="libro-card">
+                <h4>${libro.titulo}</h4>
+                <p>${libro.autor}</p>
+                <button onclick="prestarLibro('${libro.titulo}')">
+                    Prestar libro
+                </button>
             </div>
-        </section>
+        `;
+    });
+}
 
-        <!-- INFO -->
-        <section class="section">
-            <div class="container text-center">
-                <p>
-                    ✔ Acceso a libros &nbsp;&nbsp; ✔ Gestión de usuarios &nbsp;&nbsp; ✔ Control de préstamos
-                </p>
-            </div>
-        </section>
+function prestarLibro(titulo) {
+    alert("📚 Has solicitado el libro: " + titulo);
+}
 
-        <!-- FUNCIONALIDADES -->
-        <section class="features section">
-            <div class="container">
-                <div class="features-wrap">
+busqueda.addEventListener("keyup", () => {
+    const texto = busqueda.value.toLowerCase();
 
-                    <!-- BLOQUE 1 -->
-                    <div class="feature text-center">
-                        <div class="feature-inner">
-                            <div class="feature-icon">
-                                <img src="./dist/images/libro1.jpg" alt="Libros">
-                            </div>
-                            <h4>Consulta de libros</h4>
-                            <p>Búsqueda rápida de libros disponibles.</p>
-                        </div>
-                    </div>
+    const filtrados = libros.filter(l =>
+        l.titulo.toLowerCase().includes(texto)
+    );
 
-                    <!-- BLOQUE 2 -->
-                    <div class="feature text-center">
-                        <div class="feature-inner">
-                            <div class="feature-icon">
-                                <img src="./dist/images/libro2.jpg" alt="Préstamos">
-                            </div>
-                            <h4>Gestión de préstamos</h4>
-                            <p>Control de préstamos y devoluciones.</p>
-                        </div>
-                    </div>
+    mostrarLibros(filtrados);
+});
 
-                    <!-- BLOQUE 3 -->
-                    <div class="feature text-center">
-                        <div class="feature-inner">
-                            <div class="feature-icon">
-                                <img src="./dist/images/libro3.jpg" alt="Usuarios">
-                            </div>
-                            <h4>Usuarios</h4>
-                            <p>Registro y administración de usuarios.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- MÓDULO -->
-        <section class="pricing section">
-            <div class="container-sm text-center">
-
-                <h2>Funcionalidades del sistema</h2>
-
-                <ul style="list-style: none;">
-                    <li>📘 Registro de libros</li>
-                    <li>📖 Consulta de catálogo</li>
-                    <li>🔄 Gestión de préstamos</li>
-                    <li>👤 Administración de usuarios</li>
-                </ul>
-
-            </div>
-        </section>
-
-        <!-- CTA -->
-        <section class="cta section">
-            <div class="container text-center">
-                <h3>Accede al sistema de biblioteca</h3>
-                <a class="button button-primary" href="#">Ingresar</a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="container text-center">
-            <p>&copy; 2026 Sistema de Biblioteca - Proyecto SENA</p>
-        </div>
-    </footer>
-
-</div>
-
-<!-- JS -->
-<script src="./dist/js/main.min.js"></script>
+mostrarLibros(libros);
+</script>
 
 </body>
 </html>

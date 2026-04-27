@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="es" class="no-js">
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sistema de Biblioteca Virtual</title>
+    <title>Biblioteca Virtual</title>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="./dist/css/style.css">
+
+    <!-- FUENTE -->
     <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" rel="stylesheet">
-    <link rel="stylesheet" href="dist/css/style.css">
 
+    <!-- ESTILOS EXTRA -->
     <style>
         .feature-inner {
             transition: all 0.3s ease;
         }
+
         .feature-inner:hover {
             transform: translateY(-10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+
         .feature-icon img {
             border-radius: 10px;
             height: 180px;
@@ -25,13 +31,13 @@
     </style>
 </head>
 
-<body>
+<body class="is-boxed has-animations">
 <div class="body-wrap">
 
     <!-- HEADER -->
     <header class="site-header">
-        <div class="container">
-            <h2 style="color:white;">📚 Biblioteca Virtual</h2>
+        <div class="container text-center">
+            <h2>📚 Biblioteca Virtual</h2>
         </div>
     </header>
 
@@ -39,73 +45,93 @@
 
         <!-- HERO -->
         <section class="hero">
-            <div class="container">
-                <h1>Sistema de Gestión de Biblioteca</h1>
-                <p>
-                    Plataforma web para la consulta, gestión y préstamo de libros académicos 
-                    de manera digital y eficiente.
+            <div class="container text-center">
+
+                <h1 class="hero-title">Sistema de Gestión de Biblioteca</h1>
+
+                <p class="hero-paragraph">
+                    Plataforma web orientada a la gestión de libros, usuarios y préstamos 
+                    dentro de una biblioteca académica.
                 </p>
 
-                <a class="button button-primary" href="#">Consultar catálogo</a>
-                <a class="button" href="#">Registrarse</a>
+                <div class="hero-cta">
+                    <a class="button button-primary" href="#">Consultar catálogo</a>
+                    <a class="button" href="#">Registrarse</a>
+                </div>
+
             </div>
         </section>
 
-        <!-- SERVICIOS -->
+        <!-- INFO -->
+        <section class="section">
+            <div class="container text-center">
+                <p>
+                    ✔ Acceso a libros &nbsp;&nbsp; ✔ Gestión de usuarios &nbsp;&nbsp; ✔ Control de préstamos
+                </p>
+            </div>
+        </section>
+
+        <!-- FUNCIONALIDADES -->
         <section class="features section">
             <div class="container">
+                <div class="features-wrap">
 
-                <div class="feature text-center">
-                    <div class="feature-inner">
-                        <div class="feature-icon">
-                            <img src="dist/images/libro1.jpg">
+                    <!-- BLOQUE 1 -->
+                    <div class="feature text-center">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img src="./dist/images/libro1.jpg" alt="Libros">
+                            </div>
+                            <h4>Consulta de libros</h4>
+                            <p>Búsqueda rápida de libros disponibles.</p>
                         </div>
-                        <h4>Consulta de libros</h4>
-                        <p>Búsqueda rápida de libros disponibles en el sistema.</p>
                     </div>
-                </div>
 
-                <div class="feature text-center">
-                    <div class="feature-inner">
-                        <div class="feature-icon">
-                            <img src="dist/images/libro2.jpg">
+                    <!-- BLOQUE 2 -->
+                    <div class="feature text-center">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img src="./dist/images/libro2.jpg" alt="Préstamos">
+                            </div>
+                            <h4>Gestión de préstamos</h4>
+                            <p>Control de préstamos y devoluciones.</p>
                         </div>
-                        <h4>Préstamos</h4>
-                        <p>Gestión de préstamos y devoluciones en línea.</p>
                     </div>
-                </div>
 
-                <div class="feature text-center">
-                    <div class="feature-inner">
-                        <div class="feature-icon">
-                            <img src="dist/images/libro3.jpg">
+                    <!-- BLOQUE 3 -->
+                    <div class="feature text-center">
+                        <div class="feature-inner">
+                            <div class="feature-icon">
+                                <img src="./dist/images/libro3.jpg" alt="Usuarios">
+                            </div>
+                            <h4>Usuarios</h4>
+                            <p>Registro y administración de usuarios.</p>
                         </div>
-                        <h4>Usuarios</h4>
-                        <p>Registro y control de usuarios del sistema.</p>
                     </div>
-                </div>
 
+                </div>
             </div>
         </section>
 
-        <!-- MÓDULO DESTACADO -->
+        <!-- MÓDULO -->
         <section class="pricing section">
-            <div class="container-sm">
-                <h2>Funcionalidad principal</h2>
-                <p>Gestión integral del sistema de biblioteca</p>
+            <div class="container-sm text-center">
 
-                <ul>
-                    <li>Registro de libros</li>
-                    <li>Consulta de disponibilidad</li>
-                    <li>Gestión de préstamos</li>
-                    <li>Control de usuarios</li>
+                <h2>Funcionalidades del sistema</h2>
+
+                <ul style="list-style: none;">
+                    <li>📘 Registro de libros</li>
+                    <li>📖 Consulta de catálogo</li>
+                    <li>🔄 Gestión de préstamos</li>
+                    <li>👤 Administración de usuarios</li>
                 </ul>
+
             </div>
         </section>
 
         <!-- CTA -->
         <section class="cta section">
-            <div class="container">
+            <div class="container text-center">
                 <h3>Accede al sistema de biblioteca</h3>
                 <a class="button button-primary" href="#">Ingresar</a>
             </div>
@@ -113,10 +139,17 @@
 
     </main>
 
-    <footer class="site-footer text-center">
-        <p>&copy; 2026 Sistema de Biblioteca - Proyecto SENA</p>
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container text-center">
+            <p>&copy; 2026 Sistema de Biblioteca - Proyecto SENA</p>
+        </div>
     </footer>
 
 </div>
+
+<!-- JS -->
+<script src="./dist/js/main.min.js"></script>
+
 </body>
 </html>

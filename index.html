@@ -1,9 +1,3 @@
-<?php
-session_start();
-include "config/conexion.php";
-
-$logueado = isset($_SESSION['usuario']);
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -26,6 +20,20 @@ header {
     color: white;
     padding: 20px;
     text-align: center;
+    position: relative;
+}
+
+/* BOTÓN LOGOUT */
+#logoutBtn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: #e80b0b;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    display: none;
 }
 
 /* LOGIN */
@@ -37,7 +45,7 @@ header {
     border-radius: 10px;
 }
 
-#loginContainer input {
+#loginContainer input, #loginContainer select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
@@ -51,8 +59,36 @@ header {
     text-align: center;
 }
 
+.hero h1 { margin: 0; font-size: 40px; }
+.hero p { margin-top: 10px; font-size: 18px; }
+
+/* BOTONES */
+.button {
+    display: inline-block;
+    padding: 12px 25px;
+    margin: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.primary { background-color: #e80b0b; color: white; }
+.secondary {
+    background-color: white;
+    color: #0e1f87;
+    border: 2px solid #0e1f87;
+}
+
 /* SECCIÓN */
 .section { padding: 40px 20px; }
+
+/* BUSCADOR */
+#busqueda {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 2px solid #0e1f87;
+    margin: 20px 0;
+}
 
 /* CATÁLOGO */
 #catalogo {
@@ -69,6 +105,17 @@ header {
     border-left: 6px solid #e80b0b;
 }
 
+.libro-card h4 { color: #0e1f87; }
+.libro-card button {
+    margin-top: 10px;
+    background: #0e1f87;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+}
+
 /* FOOTER */
 footer {
     background-color: #0e1f87;
@@ -83,102 +130,154 @@ footer {
 
 <header>
     <h2>📚 Biblioteca Virtual</h2>
+    <button id="logoutBtn" onclick="logout()">Salir</button>
 </header>
 
 <!-- LOGIN -->
-<?php if(!$logueado){ ?>
-
 <div id="loginContainer">
+    <h3>Iniciar sesión</h3>
+    <input id="usuario" placeholder="Usuario">
+    <input id="clave" type="password" placeholder="Contraseña">
+    <button onclick="login()">Ingresar</button>
 
-    <form action="login.php" method="POST">
+    <hr>
 
-        <h3>Iniciar sesión</h3>
+    <h3>Registro</h3>
+    <input id="nuevoUsuario" placeholder="Usuario">
+    <input id="nuevaClave" type="password" placeholder="Contraseña">
 
-        <input name="usuario" placeholder="Usuario" required>
-        <input name="clave" type="password" placeholder="Contraseña" required>
+    <select id="rol">
+        <option value="estudiante">Estudiante</option>
+        <option value="docente">Docente</option>
+        <option value="administrativo">Administrativo</option>
+    </select>
 
-        <button type="submit">Ingresar</button>
-
-    </form>
-
+    <button onclick="registrar()">Registrarse</button>
 </div>
 
-<?php } else { ?>
+<!-- CONTENIDO PRINCIPAL -->
+<div id="contenido" style="display:none;">
 
-<!-- CONTENIDO -->
-<div>
-
+<!-- HERO -->
 <section class="hero">
     <h1>Sistema de Gestión - Repositorio de Tesis Digitales</h1>
-    <p>Bienvenido al sistema</p>
-</section>
-
-<!-- SUBIR DOCUMENTO -->
-<section class="section">
-
-<h2>Subir documento</h2>
-
-<form action="subir.php" method="POST" enctype="multipart/form-data">
-
-    <input type="text" name="titulo" placeholder="Título" required>
-    <input type="text" name="autor" placeholder="Autor" required>
-    <input type="text" name="programa" placeholder="Programa" required>
-
-    <input type="file" name="archivo" required>
-
-    <button type="submit">Subir documento</button>
-
-</form>
-
-</section>
-
-<!-- BUSCAR -->
-<section class="section">
-
-<h2>Buscar documentos</h2>
-
-<form action="buscar.php" method="GET">
-    <input type="text" name="q" placeholder="Buscar tesis...">
-</form>
-
+    <p id="bienvenida"></p>
 </section>
 
 <!-- CATÁLOGO -->
 <section class="section">
-
-<h2>📖 Documentos disponibles</h2>
-
-<div id="catalogo">
-
-<?php
-$sql = "SELECT * FROM documento";
-$resultado = $conexion->query($sql);
-
-while($row = $resultado->fetch_assoc()){
-?>
-
-<div class="libro-card">
-    <h4><?php echo $row['titulo']; ?></h4>
-    <p><?php echo $row['autor']; ?></p>
-
-    <a href="uploads/<?php echo $row['archivo']; ?>" download>
-        Descargar PDF
-    </a>
-</div>
-
-<?php } ?>
-
-</div>
-
+    <h2 style="text-align:center;">📖 Tesis Académicas</h2>
+    <input type="text" id="busqueda" placeholder="Buscar tesis académica...">
+    <div id="catalogo"></div>
 </section>
 
 </div>
 
-<?php } ?>
-
 <footer>
 <p>&copy; 2026 Sistema de Biblioteca - Proyecto SENA</p>
 </footer>
+
+<script>
+const libros = [
+    {titulo: "Descentralización en la gestión de facturas de compra", autor: "Sara Gabriela Vargas"},
+    {titulo: "Desarrollo de un plan de accion a Reto 59", autor: "Juan David Pulido"},
+    {titulo: "Ruta de servicio Hotel de la Opera", autor: "Nathalia Monsalve Leon"},
+    {titulo: "Tabla de Tarifas Internacionales", autor: "Juan Carlos Quiñones"}
+];
+
+const catalogo = document.getElementById("catalogo");
+const busqueda = document.getElementById("busqueda");
+
+/* REGISTRO */
+function registrar(){
+    const user = document.getElementById("nuevoUsuario").value;
+    const pass = document.getElementById("nuevaClave").value;
+    const rol = document.getElementById("rol").value;
+
+    localStorage.setItem(user, JSON.stringify({password:pass, rol:rol}));
+    alert("Usuario registrado");
+}
+
+/* LOGIN */
+function login(){
+    const user = document.getElementById("usuario").value;
+    const pass = document.getElementById("clave").value;
+
+    const data = JSON.parse(localStorage.getItem(user));
+
+    if(data && data.password === pass){
+        localStorage.setItem("sesion", user);
+        iniciarSistema();
+    } else {
+        alert("Datos incorrectos");
+    }
+}
+
+/* INICIAR SISTEMA */
+function iniciarSistema(){
+    const user = localStorage.getItem("sesion");
+    const data = JSON.parse(localStorage.getItem(user));
+
+    document.getElementById("loginContainer").style.display="none";
+    document.getElementById("contenido").style.display="block";
+    document.getElementById("logoutBtn").style.display="block";
+
+    document.getElementById("bienvenida").innerText =
+        "Bienvenido " + user + " (" + data.rol + ")";
+
+    mostrarLibros(libros, data.rol);
+}
+
+/* MOSTRAR LIBROS CON ROL */
+function mostrarLibros(lista, rol) {
+    catalogo.innerHTML = "";
+
+    lista.forEach(libro => {
+        let accion = "";
+
+        if(rol === "administrativo"){
+            accion = "Editar";
+        } else if(rol === "docente"){
+            accion = "Aprobar";
+        } else {
+            accion = "Consultar";
+        }
+
+        catalogo.innerHTML += `
+            <div class="libro-card">
+                <h4>${libro.titulo}</h4>
+                <p>${libro.autor}</p>
+                <button>${accion} documento</button>
+            </div>
+        `;
+    });
+}
+
+/* BUSQUEDA */
+busqueda.addEventListener("keyup", () => {
+    const texto = busqueda.value.toLowerCase();
+
+    const user = localStorage.getItem("sesion");
+    const data = JSON.parse(localStorage.getItem(user));
+
+    const filtrados = libros.filter(l =>
+        l.titulo.toLowerCase().includes(texto)
+    );
+
+    mostrarLibros(filtrados, data.rol);
+});
+
+/* LOGOUT */
+function logout(){
+    localStorage.removeItem("sesion");
+    location.reload();
+}
+
+/* SESION ACTIVA */
+if(localStorage.getItem("sesion")){
+    iniciarSistema();
+}
+</script>
 
 </body>
 </html>
